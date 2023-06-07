@@ -1,0 +1,18 @@
+The publicly known hash is 7632240435867960828859087229281721508692736987569244025697539808302626747545
+We know the message, of which the hash this is. But how do we prove we know it without revealing it?
+The method knowsPreimage(secret, hash) only is verifyable, if the provided secret was correct.
+First we put this into a smart contract ...
+... and deploy into a local blockchain.
+Deployed contract at address[object Object]
+Public hash in the smart contract:7632240435867960828859087229281721508692736987569244025697539808302626747545
+Has someone yet proven, that they know the secret hash pre-image? false
+If we provide the wrong secret, then the transaction to prove the secret to the chain fails:
+assert_equal: 0x0425E348A9E18342ECE267C36443B4DBF76D8961D05D040AB2DBF085BBE7E304 != 0x10DFB1EBAEB625F4821F1E3C618103465F09AFBA50C950411C2BEE41E5C3B499
+Has someone yet proven, that they know the secret hash pre-image? false
+Now the person who knows the secret can provide a proof of their knowledge by submitting a verifiable zk transaction.
+Transaction verification key hash: 3392518251768960475377392625298437850623664973002200885669375116181514017494
+Generating proof...
+Transaction with proof authorization: ..KSk=
+Deploying proven tx into blockchain.
+Has someone yet proven, that they know the secret hash pre-image? true
+This concludes our proof!
