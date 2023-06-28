@@ -43,7 +43,7 @@ export class RuntimeSmartContract extends SmartContract {
 
 console.log("... and deploy into a local blockchain.")
 
-const proofsEnabled = false; // todo. what does this mean?
+const proofsEnabled = true;
 const Local = Mina.LocalBlockchain({proofsEnabled: proofsEnabled});
 Mina.setActiveInstance(Local);
 
@@ -55,6 +55,8 @@ const contractPublicKey = contractPrivateKey.toPublicKey();
 
 const contract = new RuntimeSmartContract(contractPublicKey);
 
+await RuntimeSmartContract.compile();
+
 const deployTx = await Mina.transaction(deployerAccount, () => {
   AccountUpdate.fundNewAccount(deployerAccount);
   contract.deploy();
@@ -62,7 +64,7 @@ const deployTx = await Mina.transaction(deployerAccount, () => {
 
 await deployTx.sign([deployerKey, contractPrivateKey]).send();
 
-console.log("Deployed contract at address" + contractPublicKey);
+console.log("Deployed contract at address " + JSON.stringify(contractPublicKey.toJSON(), null, 2));
 
 console.log("Public hash in the smart contract:" + contract.expectedHash.get().toString());
 
